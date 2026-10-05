@@ -87,4 +87,15 @@ class override_register {
 
         $DB->delete_records(self::TABLE, ['quizid' => $quizid, 'userid' => $userid]);
     }
+
+    /**
+     * Forget every student of a quiz that no longer exists.
+     *
+     * @return void
+     */
+    public function delete_for_deleted_quizzes(): void {
+        global $DB;
+
+        $DB->delete_records_select(self::TABLE, 'quizid NOT IN (SELECT q.id FROM {quiz} q)');
+    }
 }

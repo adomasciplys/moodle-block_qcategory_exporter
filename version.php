@@ -25,11 +25,11 @@
 defined('MOODLE_INTERNAL') || die();
 
 // What is the version of the plugin.
-$plugin->version = 2026100500;
+$plugin->version = 2026100501;
 // What moodle version is required. 2025041403 is Moodle 5.0.3, the first release with the
 // question bank module structure this plugin builds on.
 $plugin->requires = 2025041403;
-// The Moodle branches the plugin was used on: Moodle 5.0 and 5.1
+// The Moodle branches the plugin was used on: Moodle 5.0 and 5.1.
 $plugin->supported = [500, 501];
 $plugin->component = 'block_qcategory_exporter';
 $plugin->maturity = MATURITY_STABLE;

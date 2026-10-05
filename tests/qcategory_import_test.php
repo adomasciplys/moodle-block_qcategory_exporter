@@ -138,7 +138,8 @@ final class qcategory_import_test extends advanced_testcase {
         $entryids = array_map('intval', array_keys($entries));
         $versions = $entryids ? $DB->get_records_list('question_versions', 'questionbankentryid', $entryids, '', 'questionid') : [];
         $questionids = array_map(static fn($v) => (int)$v->questionid, $versions);
-        $questions = $questionids ? $DB->get_records_list('question', 'id', $questionids, 'id ASC', 'id, name, qtype, questiontext, generalfeedback') : [];
+        $questionfields = 'id, name, qtype, questiontext, generalfeedback';
+        $questions = $questionids ? $DB->get_records_list('question', 'id', $questionids, 'id ASC', $questionfields) : [];
         // Check questions are actually the ones we created.
         $this->assertCount(3, $questions);
         foreach ($questions as $q) {

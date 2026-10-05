@@ -39,7 +39,9 @@ class question_resolver {
                   JOIN {question} q ON q.id = qv.questionid
                  WHERE qv.questionbankentryid = :entryid
               ORDER BY qv.version DESC";
-        return $DB->get_record_sql($sql, ['entryid' => $entryid], IGNORE_MISSING);
+
+        // IGNORE_MULTIPLE fetches the newest row only.
+        return $DB->get_record_sql($sql, ['entryid' => $entryid], IGNORE_MULTIPLE) ?: null;
     }
 
     /**
@@ -196,6 +198,7 @@ class question_resolver {
                    {$notused}
               ORDER BY qv.version DESC, qbe.id ASC";
 
-        return $DB->get_record_sql($sql, $params, IGNORE_MISSING) ?: null;
+        // More than one question can match. IGNORE_MULTIPLE fetches the first row only.
+        return $DB->get_record_sql($sql, $params, IGNORE_MULTIPLE) ?: null;
     }
 }

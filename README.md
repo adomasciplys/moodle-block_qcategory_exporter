@@ -145,7 +145,8 @@ grade wins. `classes/observer.php` runs each time `mod_quiz` recalculates a grad
 
 The table `block_qcategory_exporter_carried` stores each carried-over grade. It is how the plugin knows
 which overrides are its own, so an override set by a teacher is never touched. A student's row
-is deleted once one of their attempts beats the carried-over grade.
+is deleted once one of their attempts beats the carried-over grade, or when the copied quiz is
+deleted.
 
 ## Permissions
 
