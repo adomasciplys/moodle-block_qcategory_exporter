@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+    <question type="category">
+        <category>
+            <text>top/Top Level</text>
+        </category>
+        <info format="html">
+            <text></text>
+        </info>
+        <idnumber></idnumber>
+    </question>
+
+    <!-- question: 0  -->
+    <question type="category">
+        <category>
+            <text>top/Top Level/Second Level: With Colon</text>
+        </category>
+        <info format="html">
+            <text></text>
+        </info>
+        <idnumber></idnumber>
+    </question>
+
+    <!-- question: 0  -->
+    <question type="category">
+        <category>
+            <text>top/Top Level/Second Level: With Colon/Deepest Category</text>
+        </category>
+        <info format="html">
+            <text></text>
+        </info>
+        <idnumber></idnumber>
+    </question>
+</quiz>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+    <question type="category">
+        <category>
+            <text>$course$/top/Path</text>
+        </category>
+    </question>
+    <question type="truefalse">
+        <name>
+            <text>TF1</text>
+        </name>
+    </question>
+</quiz>
