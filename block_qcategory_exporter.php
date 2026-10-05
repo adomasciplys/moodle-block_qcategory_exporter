@@ -23,8 +23,7 @@ use block_qcategory_exporter\exporter;
  * @copyright 2026 Innowell
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class block_qcategory_exporter extends block_base
-{
+class block_qcategory_exporter extends block_base {
     /**
      * Initialises the block.
      * Block displays the categories which are about to be imported.

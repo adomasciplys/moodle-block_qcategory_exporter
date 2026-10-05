@@ -25,7 +25,7 @@ namespace block_qcategory_exporter\duplicator;
  * The observer reads the row when the student submits an attempt, removes the override
  * once the attempt beats the carried-over grade, and deletes the row.
  *
- * Rows live in the table block_qcexp_carried.
+ * Rows live in the table block_qcategory_exporter_carried.
  *
  * @package    block_qcategory_exporter
  * @copyright  2026 Innowell
@@ -33,7 +33,7 @@ namespace block_qcategory_exporter\duplicator;
  */
 class override_register {
     /** @var string The table holding one row per protected student. */
-    public const TABLE = 'block_qcexp_carried';
+    public const TABLE = 'block_qcategory_exporter_carried';
 
     /**
      * Remember that this student's work on the copy is being held in place by an override.

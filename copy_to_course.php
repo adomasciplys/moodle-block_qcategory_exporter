@@ -34,6 +34,8 @@ $courseid = required_param('courseid', PARAM_INT); // Destination course.
 $categories = required_param('categories', PARAM_SEQUENCE); // Ids of the categories to import.
 require_login($courseid);
 require_sesskey();
+// The block shows only to site administrators, so the page it posts to accepts only them.
+require_capability('moodle/site:config', context_system::instance());
 
 // Set the page up before any work.
 $PAGE->set_url(new moodle_url('/blocks/qcategory_exporter/copy_to_course.php', ['courseid' => $courseid]));
@@ -79,7 +81,7 @@ if (!empty($result['failed'])) {
     $message = get_string('importcompletewithskipped', 'block_qcategory_exporter', (object) [
         'duplicated' => (int) $result['duplicated'],
         'skipped' => count($result['skipped']),
-        'firstmessage' => describe_skipped_slot($firstskipped),
+        'firstmessage' => block_qcategory_exporter_describe_skipped_slot($firstskipped),
     ]);
     $messagetype = notification::NOTIFY_WARNING;
 } else {
@@ -96,7 +98,7 @@ redirect(new moodle_url('/course/view.php', ['id' => $courseid]), $message, null
  * @param array{name: string, slot: int, reason: string} $skipped One entry from the duplicator's report.
  * @return string
  */
-function describe_skipped_slot(array $skipped): string {
+function block_qcategory_exporter_describe_skipped_slot(array $skipped): string {
     // A reason code the language file does not know about is still worth reporting.
     $reasonkey = 'skipreason_' . ($skipped['reason'] ?? '');
     $reason = get_string_manager()->string_exists($reasonkey, 'block_qcategory_exporter')

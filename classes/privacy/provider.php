@@ -51,12 +51,13 @@ class provider implements
         $collection->add_database_table(
             override_register::TABLE,
             [
-                'quizid' => 'privacy:metadata:block_qcexp_carried:quizid',
-                'cmid' => 'privacy:metadata:block_qcexp_carried:cmid',
-                'userid' => 'privacy:metadata:block_qcexp_carried:userid',
-                'timecreated' => 'privacy:metadata:block_qcexp_carried:timecreated',
+                'quizid' => 'privacy:metadata:block_qcategory_exporter_carried:quizid',
+                'cmid' => 'privacy:metadata:block_qcategory_exporter_carried:cmid',
+                'userid' => 'privacy:metadata:block_qcategory_exporter_carried:userid',
+                'grade' => 'privacy:metadata:block_qcategory_exporter_carried:grade',
+                'timecreated' => 'privacy:metadata:block_qcategory_exporter_carried:timecreated',
             ],
-            'privacy:metadata:block_qcexp_carried'
+            'privacy:metadata:block_qcategory_exporter_carried'
         );
 
         return $collection;
@@ -131,6 +132,7 @@ class provider implements
                 (object) [
                     'quizid' => (int) $record->quizid,
                     'cmid' => (int) $record->cmid,
+                    'grade' => is_null($record->grade) ? null : (float) $record->grade,
                     'timecreated' => \core_privacy\local\request\transform::datetime($record->timecreated),
                 ]
             );
