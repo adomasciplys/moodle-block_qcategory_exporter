@@ -1337,7 +1337,7 @@ final class qcategory_duplicate_test extends advanced_testcase {
      * @param \stdClass $course Course to build the quiz in.
      * @param \stdClass $sourcecat Category the quiz draws its question from.
      * @param \stdClass $targetcat The course's own copy of that category.
-     * @param array<string, mixed> $options Extra quiz settings.
+     * @param array $options Extra quiz settings.
      * @return \stdClass The quiz record the generator made.
      */
     private function create_mapped_quiz(

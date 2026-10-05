@@ -95,7 +95,7 @@ redirect(new moodle_url('/course/view.php', ['id' => $courseid]), $message, null
 /**
  * Put one skipped slot into words: which quiz, which question, and why it was left out.
  *
- * @param array{name: string, slot: int, reason: string} $skipped One entry from the duplicator's report.
+ * @param array $skipped One entry from the duplicator's report, with the keys name, slot and reason.
  * @return string
  */
 function block_qcategory_exporter_describe_skipped_slot(array $skipped): string {

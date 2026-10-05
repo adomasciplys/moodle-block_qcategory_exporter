@@ -58,7 +58,7 @@ class question_resolver {
      * @param int $categoryid Target category id.
      * @param \stdClass $oldentry Source question_bank_entries row.
      * @param \stdClass $oldquestion Source question record.
-     * @param array<int, int> $usedentryids Target question_bank_entries ids already taken.
+     * @param int[] $usedentryids Target question_bank_entries ids already taken.
      * @return \stdClass|null Matching question record, or null when none of the four match.
      */
     public function find_matching_question(
@@ -155,7 +155,7 @@ class question_resolver {
      * @param int $categoryid Target category id.
      * @param string $column Column to match on
      * @param string|null $value Value to match; a blank value means there is nothing to match.
-     * @param array<int, int> $usedentryids Entries to leave out, already taken by an earlier slot.
+     * @param int[] $usedentryids Entries to leave out, already taken by an earlier slot.
      * @param bool $longtext True when the column holds long text, which some databases cannot
      *      compare with a plain equals.
      * @return \stdClass|null Matching question record, or null when there is no match.

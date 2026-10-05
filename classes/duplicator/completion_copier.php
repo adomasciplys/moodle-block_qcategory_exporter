@@ -73,7 +73,7 @@ class completion_copier {
      * @param int $sourcecmid Course module id of the original quiz.
      * @param int $newcmid Course module id of the copy.
      * @param int $newquizid Quiz instance id of the copy.
-     * @param array<int, int> $students User ids to carry completion over for.
+     * @param int[] $students User ids to carry completion over for.
      * @return int How many students the copy was marked complete for.
      */
     public function copy_all(
