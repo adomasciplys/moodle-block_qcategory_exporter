@@ -15,11 +15,12 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    @template @template block_qcategory_exporter/content
+    @template block_qcategory_exporter/content
 
     Outer shell of block
 
-    Developed by Innowell
+    @copyright 2025 Innowell
+    @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 
     Classes required for JS:
     * none
@@ -28,11 +29,21 @@
     * none
 
     Context variables required for this template:
-    * none
+    * actionurl - URL of the page the Import button posts to
+    * sesskey - session key of the current user
+    * courseid - id of the course the block is in
+    * categoryids - comma separated ids of the categories to import
+    * categories - list of the categories to import, each with a name
 
     Example context (json):
     {
-        "name": "value"
+        "actionurl": "https://example.com/blocks/qcategory_exporter/copy_to_course.php",
+        "sesskey": "abc123",
+        "courseid": 2,
+        "categoryids": "12,34",
+        "categories": [
+            {"name": "Old course: Category name"}
+        ]
     }
 }}
 
@@ -41,14 +52,12 @@
   {{#categories}}
   <div>{{name}}</div>
   {{/categories}}
-  <p>
-     <form method="post" action="{{actionurl}}">
-         <input type="hidden" name="sesskey" value="{{sesskey}}">
-         <input type="hidden" name="courseid" value="{{courseid}}">
-         <input type="hidden" name="categories" value="{{categoryids}}">
-         <button type="submit" class="btn btn-secondary">
-             {{#str}}importcategories, block_qcategory_exporter{{/str}}
-         </button>
-     </form>
-</p>
+  <form method="post" action="{{actionurl}}">
+    <input type="hidden" name="sesskey" value="{{sesskey}}">
+    <input type="hidden" name="courseid" value="{{courseid}}">
+    <input type="hidden" name="categories" value="{{categoryids}}">
+    <button type="submit" class="btn btn-secondary">
+      {{#str}}importcategories, block_qcategory_exporter{{/str}}
+    </button>
+  </form>
 </div>

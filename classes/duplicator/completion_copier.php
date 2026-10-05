@@ -25,7 +25,7 @@ namespace block_qcategory_exporter\duplicator;
  * This class saves these completion states as manual overrides.
  * Manual overrides prevent Moodle from changing the completion states automatically.
  *
- * This class saves every manual override in the override register (table block_qcexp_carried).
+ * This class saves every manual override in the override register (table block_qcategory_exporter_carried).
  * An observer uses the override register to delete the manual override
  * when the student submits a higher scoring quiz attempt on the copied quiz.
  *
@@ -73,7 +73,7 @@ class completion_copier {
      * @param int $sourcecmid Course module id of the original quiz.
      * @param int $newcmid Course module id of the copy.
      * @param int $newquizid Quiz instance id of the copy.
-     * @param array<int, int> $students User ids to carry completion over for.
+     * @param int[] $students User ids to carry completion over for.
      * @return int How many students the copy was marked complete for.
      */
     public function copy_all(

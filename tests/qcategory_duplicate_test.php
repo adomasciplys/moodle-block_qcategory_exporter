@@ -59,7 +59,6 @@ require_once($CFG->dirroot . '/mod/quiz/locallib.php');
 #[CoversMethod(\block_qcategory_exporter\observer::class, 'attempt_graded')]
 #[CoversMethod(\block_qcategory_exporter\observer::class, 'question_manually_graded')]
 final class qcategory_duplicate_test extends advanced_testcase {
-
     /**
      * A copied random slot must not keep any reference to the shared bank it came from.
      *
@@ -154,10 +153,16 @@ final class qcategory_duplicate_test extends advanced_testcase {
         [$sourcecat, $targetcat] = $this->create_source_and_target_categories($course);
 
         // The same question in both banks: the shared original, and the course's copy.
-        $sourcequestion = $qgen->create_question('shortanswer', null,
-            ['category' => $sourcecat->id, 'name' => 'Shared Q1']);
-        $qgen->create_question('shortanswer', null,
-            ['category' => $targetcat->id, 'name' => 'Shared Q1']);
+        $sourcequestion = $qgen->create_question(
+            'shortanswer',
+            null,
+            ['category' => $sourcecat->id, 'name' => 'Shared Q1']
+        );
+        $qgen->create_question(
+            'shortanswer',
+            null,
+            ['category' => $targetcat->id, 'name' => 'Shared Q1']
+        );
 
         $quiz = $this->getDataGenerator()->create_module('quiz', ['course' => $course->id]);
         quiz_add_quiz_question((int) $sourcequestion->id, $quiz, 1, 3.0);
@@ -293,10 +298,16 @@ final class qcategory_duplicate_test extends advanced_testcase {
         ]);
 
         // The quiz needs a question from the source category, or it is not copied at all.
-        $sourcequestion = $qgen->create_question('shortanswer', null,
-            ['category' => $sourcecat->id, 'name' => 'Shared Q1']);
-        $qgen->create_question('shortanswer', null,
-            ['category' => $targetcat->id, 'name' => 'Shared Q1']);
+        $sourcequestion = $qgen->create_question(
+            'shortanswer',
+            null,
+            ['category' => $sourcecat->id, 'name' => 'Shared Q1']
+        );
+        $qgen->create_question(
+            'shortanswer',
+            null,
+            ['category' => $targetcat->id, 'name' => 'Shared Q1']
+        );
         quiz_add_quiz_question((int) $sourcequestion->id, $quiz);
 
         // ACT.
@@ -334,10 +345,16 @@ final class qcategory_duplicate_test extends advanced_testcase {
         $qgen = $this->getDataGenerator()->get_plugin_generator('core_question');
         [$sourcecat, $targetcat] = $this->create_source_and_target_categories($course);
 
-        $sourcequestion = $qgen->create_question('shortanswer', null,
-            ['category' => $sourcecat->id, 'name' => 'Shared Q1']);
-        $qgen->create_question('shortanswer', null,
-            ['category' => $targetcat->id, 'name' => 'Shared Q1']);
+        $sourcequestion = $qgen->create_question(
+            'shortanswer',
+            null,
+            ['category' => $sourcecat->id, 'name' => 'Shared Q1']
+        );
+        $qgen->create_question(
+            'shortanswer',
+            null,
+            ['category' => $targetcat->id, 'name' => 'Shared Q1']
+        );
 
         $quiz = $this->getDataGenerator()->create_module('quiz', ['course' => $course->id]);
         quiz_add_quiz_question((int) $sourcequestion->id, $quiz);
@@ -393,10 +410,16 @@ final class qcategory_duplicate_test extends advanced_testcase {
         $qgen = $this->getDataGenerator()->get_plugin_generator('core_question');
         [$sourcecat, $targetcat] = $this->create_source_and_target_categories($course);
 
-        $sourcequestion = $qgen->create_question('shortanswer', null,
-            ['category' => $sourcecat->id, 'name' => 'Shared Q1']);
-        $qgen->create_question('shortanswer', null,
-            ['category' => $targetcat->id, 'name' => 'Shared Q1']);
+        $sourcequestion = $qgen->create_question(
+            'shortanswer',
+            null,
+            ['category' => $sourcecat->id, 'name' => 'Shared Q1']
+        );
+        $qgen->create_question(
+            'shortanswer',
+            null,
+            ['category' => $targetcat->id, 'name' => 'Shared Q1']
+        );
 
         $quiz = $this->getDataGenerator()->create_module('quiz', ['course' => $course->id, 'grade' => 10]);
         quiz_add_quiz_question((int) $sourcequestion->id, $quiz);
@@ -424,8 +447,12 @@ final class qcategory_duplicate_test extends advanced_testcase {
 
         // ASSERT.
         $this->assertSame([], $result['failed']);
-        $copied = $DB->get_records('quiz_feedback',
-            ['quizid' => $result['quizmap'][(int) $quiz->id]], 'mingrade ASC', 'feedbacktext, mingrade, maxgrade');
+        $copied = $DB->get_records(
+            'quiz_feedback',
+            ['quizid' => $result['quizmap'][(int) $quiz->id]],
+            'mingrade ASC',
+            'feedbacktext, mingrade, maxgrade'
+        );
 
         $this->assertCount(2, $copied);
 
@@ -453,10 +480,16 @@ final class qcategory_duplicate_test extends advanced_testcase {
         $qgen = $this->getDataGenerator()->get_plugin_generator('core_question');
         [$sourcecat, $targetcat] = $this->create_source_and_target_categories($course);
 
-        $sourcequestion = $qgen->create_question('shortanswer', null,
-            ['category' => $sourcecat->id, 'name' => 'Shared Q1']);
-        $qgen->create_question('shortanswer', null,
-            ['category' => $targetcat->id, 'name' => 'Shared Q1']);
+        $sourcequestion = $qgen->create_question(
+            'shortanswer',
+            null,
+            ['category' => $sourcecat->id, 'name' => 'Shared Q1']
+        );
+        $qgen->create_question(
+            'shortanswer',
+            null,
+            ['category' => $targetcat->id, 'name' => 'Shared Q1']
+        );
 
         $quiz = $this->getDataGenerator()->create_module('quiz', [
             'course' => $course->id,
@@ -468,7 +501,8 @@ final class qcategory_duplicate_test extends advanced_testcase {
         // The image itself, kept in the quiz's module context. The second copy sits in a
         // subdirectory, the way an image resizer stores its smaller version.
         $sourcecontextid = context_module::instance(
-            (int) get_coursemodule_from_instance('quiz', $quiz->id)->id)->id;
+            (int) get_coursemodule_from_instance('quiz', $quiz->id)->id
+        )->id;
         $this->create_intro_file($sourcecontextid, '/', 'diagram.png');
         $this->create_intro_file($sourcecontextid, '/imageopt/800/', 'diagram.png');
 
@@ -480,10 +514,17 @@ final class qcategory_duplicate_test extends advanced_testcase {
         $this->assertSame([], $result['failed']);
         $newquizid = $result['quizmap'][(int) $quiz->id];
         $newcontextid = context_module::instance(
-            (int) get_coursemodule_from_instance('quiz', $newquizid)->id)->id;
+            (int) get_coursemodule_from_instance('quiz', $newquizid)->id
+        )->id;
 
         $copied = get_file_storage()->get_area_files(
-            $newcontextid, 'mod_quiz', 'intro', 0, 'filepath, filename', false);
+            $newcontextid,
+            'mod_quiz',
+            'intro',
+            0,
+            'filepath, filename',
+            false
+        );
 
         $paths = [];
         foreach ($copied as $file) {
@@ -530,8 +571,11 @@ final class qcategory_duplicate_test extends advanced_testcase {
         [$sourcecat, $targetcat] = $this->create_source_and_target_categories($course);
 
         // The imported category is left empty, so nothing in it can match this question.
-        $sourcequestion = $qgen->create_question('shortanswer', null,
-            ['category' => $sourcecat->id, 'name' => 'Shared Q1']);
+        $sourcequestion = $qgen->create_question(
+            'shortanswer',
+            null,
+            ['category' => $sourcecat->id, 'name' => 'Shared Q1']
+        );
 
         $quiz = $this->getDataGenerator()->create_module('quiz', ['course' => $course->id]);
         quiz_add_quiz_question((int) $sourcequestion->id, $quiz);
@@ -573,19 +617,28 @@ final class qcategory_duplicate_test extends advanced_testcase {
             'contextid' => context_system::instance()->id,
             'name' => 'Shared: Not imported',
         ]);
-        $otherquestion = $qgen->create_question('shortanswer', null,
-            ['category' => $othercat->id, 'name' => 'Other Q1']);
+        $otherquestion = $qgen->create_question(
+            'shortanswer',
+            null,
+            ['category' => $othercat->id, 'name' => 'Other Q1']
+        );
 
         // Slot 1 draws from the imported category, so the quiz is copied at all. Slot 2 holds
         // one question from the category nobody imported, and slot 3 draws from it at random.
         $quiz = $this->getDataGenerator()->create_module('quiz', ['course' => $course->id]);
         $sourcecmid = (int) get_coursemodule_from_instance('quiz', $quiz->id)->id;
         $structure = quiz_settings::create($quiz->id)->get_structure();
-        $structure->add_random_questions(0, 1,
-            $this->random_filter_condition($sourcecat, $sourcecmid, (int) $course->id));
+        $structure->add_random_questions(
+            0,
+            1,
+            $this->random_filter_condition($sourcecat, $sourcecmid, (int) $course->id)
+        );
         quiz_add_quiz_question((int) $otherquestion->id, $quiz);
-        quiz_settings::create($quiz->id)->get_structure()->add_random_questions(0, 1,
-            $this->random_filter_condition($othercat, $sourcecmid, (int) $course->id));
+        quiz_settings::create($quiz->id)->get_structure()->add_random_questions(
+            0,
+            1,
+            $this->random_filter_condition($othercat, $sourcecmid, (int) $course->id)
+        );
 
         // ACT.
         $duplicator = new duplicator();
@@ -598,8 +651,10 @@ final class qcategory_duplicate_test extends advanced_testcase {
         // Both slots from the category that was not imported are reported.
         $this->assertCount(2, $result['skipped']);
         $this->assertSame([2, 3], array_column($result['skipped'], 'slot'));
-        $this->assertSame(['categorynotimported', 'categorynotimported'],
-            array_column($result['skipped'], 'reason'));
+        $this->assertSame(
+            ['categorynotimported', 'categorynotimported'],
+            array_column($result['skipped'], 'reason')
+        );
 
         // And neither is in the copy: one random slot, drawing from the imported category.
         $copied = $this->random_slot_filterconditions($newquizid);
@@ -649,10 +704,16 @@ final class qcategory_duplicate_test extends advanced_testcase {
         $qgen = $this->getDataGenerator()->get_plugin_generator('core_question');
         [$sourcecat, $targetcat] = $this->create_source_and_target_categories($course);
 
-        $sourcequestion = $qgen->create_question('shortanswer', null,
-            ['category' => $sourcecat->id, 'name' => 'Shared Q1']);
-        $qgen->create_question('shortanswer', null,
-            ['category' => $targetcat->id, 'name' => 'Shared Q1']);
+        $sourcequestion = $qgen->create_question(
+            'shortanswer',
+            null,
+            ['category' => $sourcecat->id, 'name' => 'Shared Q1']
+        );
+        $qgen->create_question(
+            'shortanswer',
+            null,
+            ['category' => $targetcat->id, 'name' => 'Shared Q1']
+        );
 
         $quiz = $this->getDataGenerator()->create_module('quiz', ['course' => $course->id]);
         quiz_add_quiz_question((int) $sourcequestion->id, $quiz);
@@ -695,13 +756,21 @@ final class qcategory_duplicate_test extends advanced_testcase {
         $qgen = $this->getDataGenerator()->get_plugin_generator('core_question');
         [$sourcecat, $targetcat] = $this->create_source_and_target_categories($course);
 
-        $sourcequestion = $qgen->create_question('shortanswer', null,
-            ['category' => $sourcecat->id, 'name' => 'Shared Q1']);
-        $qgen->create_question('shortanswer', null,
-            ['category' => $targetcat->id, 'name' => 'Shared Q1']);
+        $sourcequestion = $qgen->create_question(
+            'shortanswer',
+            null,
+            ['category' => $sourcecat->id, 'name' => 'Shared Q1']
+        );
+        $qgen->create_question(
+            'shortanswer',
+            null,
+            ['category' => $targetcat->id, 'name' => 'Shared Q1']
+        );
 
-        $quiz = $this->getDataGenerator()->create_module('quiz',
-            ['course' => $course->id, 'name' => 'Original quiz']);
+        $quiz = $this->getDataGenerator()->create_module(
+            'quiz',
+            ['course' => $course->id, 'name' => 'Original quiz']
+        );
         quiz_add_quiz_question((int) $sourcequestion->id, $quiz);
         $sourcecmid = (int) get_coursemodule_from_instance('quiz', $quiz->id)->id;
 
@@ -889,8 +958,11 @@ final class qcategory_duplicate_test extends advanced_testcase {
         // The original is where the copy is expected to land.
         $this->assertEquals(
             COMPLETION_COMPLETE_PASS,
-            $DB->get_field('course_modules_completion', 'completionstate',
-                ['coursemoduleid' => (int) $sourcecm->id, 'userid' => (int) $student->id])
+            $DB->get_field(
+                'course_modules_completion',
+                'completionstate',
+                ['coursemoduleid' => (int) $sourcecm->id, 'userid' => (int) $student->id]
+            )
         );
 
         // ACT.
@@ -903,16 +975,23 @@ final class qcategory_duplicate_test extends advanced_testcase {
         $newcmid = (int) get_coursemodule_from_instance('quiz', $newquizid)->id;
 
         // The quiz's own record of the grade.
-        $this->assertEquals(80.0, (float) $DB->get_field('quiz_grades', 'grade',
-            ['quiz' => $newquizid, 'userid' => (int) $student->id]));
+        $this->assertEquals(80.0, (float) $DB->get_field(
+            'quiz_grades',
+            'grade',
+            ['quiz' => $newquizid, 'userid' => (int) $student->id]
+        ));
 
         // And the gradebook's.
         $grades = grade_get_grades((int) $course->id, 'mod', 'quiz', $newquizid, (int) $student->id);
         $this->assertEquals(80.0, (float) $grades->items[0]->grades[(int) $student->id]->grade);
 
         // Passed, and worked out by Moodle rather than written over the top of it.
-        $marked = $DB->get_record('course_modules_completion',
-            ['coursemoduleid' => $newcmid, 'userid' => (int) $student->id], '*', MUST_EXIST);
+        $marked = $DB->get_record(
+            'course_modules_completion',
+            ['coursemoduleid' => $newcmid, 'userid' => (int) $student->id],
+            '*',
+            MUST_EXIST
+        );
         $this->assertEquals(COMPLETION_COMPLETE_PASS, $marked->completionstate);
         $this->assertNull($marked->overrideby);
     }
@@ -1258,7 +1337,7 @@ final class qcategory_duplicate_test extends advanced_testcase {
      * @param \stdClass $course Course to build the quiz in.
      * @param \stdClass $sourcecat Category the quiz draws its question from.
      * @param \stdClass $targetcat The course's own copy of that category.
-     * @param array<string, mixed> $options Extra quiz settings.
+     * @param array $options Extra quiz settings.
      * @return \stdClass The quiz record the generator made.
      */
     private function create_mapped_quiz(
@@ -1272,15 +1351,27 @@ final class qcategory_duplicate_test extends advanced_testcase {
         $quiz = $this->getDataGenerator()->create_module('quiz', $options + ['course' => $course->id]);
 
         // The same question in both banks: the shared original, and the course's copy.
-        $sourcequestion = $qgen->create_question('shortanswer', null,
-            ['category' => $sourcecat->id, 'name' => 'Shared Q1']);
-        $qgen->create_question('shortanswer', null,
-            ['category' => $targetcat->id, 'name' => 'Shared Q1']);
+        $sourcequestion = $qgen->create_question(
+            'shortanswer',
+            null,
+            ['category' => $sourcecat->id, 'name' => 'Shared Q1']
+        );
+        $qgen->create_question(
+            'shortanswer',
+            null,
+            ['category' => $targetcat->id, 'name' => 'Shared Q1']
+        );
         quiz_add_quiz_question((int) $sourcequestion->id, $quiz);
 
         return $quiz;
     }
 
+    /**
+     * Create a shared question category, and a question category in the course's own question bank.
+     *
+     * @param \stdClass $course
+     * @return array The shared category, the course category and the context of the course's own question bank.
+     */
     private function create_source_and_target_categories(\stdClass $course): array {
         $qgen = $this->getDataGenerator()->get_plugin_generator('core_question');
 

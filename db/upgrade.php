@@ -68,5 +68,15 @@ function xmldb_block_qcategory_exporter_upgrade($oldversion) {
         upgrade_block_savepoint(true, 2026091101, 'qcategory_exporter');
     }
 
+    if ($oldversion < 2026100500) {
+        $table = new xmldb_table('block_qcexp_carried');
+
+        if ($dbman->table_exists($table)) {
+            $dbman->rename_table($table, 'block_qcategory_exporter_carried');
+        }
+
+        upgrade_block_savepoint(true, 2026100500, 'qcategory_exporter');
+    }
+
     return true;
 }

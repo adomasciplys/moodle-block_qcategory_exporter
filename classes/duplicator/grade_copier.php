@@ -48,7 +48,7 @@ class grade_copier {
      * @param int $sourcequizid Quiz instance id of the original.
      * @param int $newquizid Quiz instance id of the copy.
      * @param int $newcmid Course module id of the copy.
-     * @param array<int, int> $students User ids to carry grades over for.
+     * @param int[] $students User ids to carry grades over for.
      * @return int How many grades were copied.
      */
     public function copy_all(int $sourcequizid, int $newquizid, int $newcmid, array $students): int {
@@ -105,7 +105,7 @@ class grade_copier {
      * @param int $courseid Course the copy belongs to.
      * @param int $newquizid Quiz instance id of the copy.
      * @param int $newcmid Course module id of the copy.
-     * @param array<int, \stdClass> $gradebook The grades just handed to the gradebook.
+     * @param \stdClass[] $gradebook The grades just handed to the gradebook.
      * @return void
      */
     private function pin_passing_grades(int $courseid, int $newquizid, int $newcmid, array $gradebook): void {
