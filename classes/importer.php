@@ -121,7 +121,7 @@ class importer {
         // Passing true creates the bank when the course has none yet.
         $topmodule = question_bank_helper::get_default_open_instance_system_type($course, true);
         if (!$topmodule) {
-            throw new moodle_exception('Could not get/create the system question bank instance.');
+            throw new moodle_exception('noquestionbank', 'block_qcategory_exporter');
         }
 
         $modulecontext = context_module::instance($topmodule->id);

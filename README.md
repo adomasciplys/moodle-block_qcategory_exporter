@@ -4,9 +4,10 @@ A Moodle block (`block_qcategory_exporter`) that migrates the questions a course
 shared question bank into the course's own question bank.
 
 > **This plugin is not maintained.**
-> I no longer maintain this plugin. It is available only in its current version, v1.2.
+> I no longer maintain this plugin. It is available only in its current version, v1.3.
 > There will be no bug fixes, no new features and no updates for newer Moodle versions.
-> Issues and pull requests are not answered. Test it on a copy of your site before you use it.
+> Report bugs in the [issue tracker](https://github.com/adomasciplys/moodle-block_qcategory_exporter/issues).
+> A reported bug may not get a fix. Test it on a copy of your site before you use it.
 > You are free to fork it under the GPL.
 
 ## Purpose
@@ -26,7 +27,8 @@ Use it on a site that was upgraded from a version before Moodle 5.0 to Moodle 5.
 ## Requirements
 
 - Moodle 5.0.3 or later.
-- A site administrator account. The block shows only to users with `moodle/site:config`.
+- A site administrator account. Only users with `moodle/site:config` see the block and can run
+  the import.
 
 ## Installation
 
@@ -42,7 +44,7 @@ Do this once per course.
 1. **Back up the course.** The plugin creates question categories, quizzes, grades and
    completion records. It has no undo.
 2. Open the course as a site administrator and turn on **Edit mode**.
-3. Choose **Add a block → Question Category Exporter Block**.
+3. Choose **Add a block → Question category exporter block**.
 4. Read the list in the block. It shows every question category that a visible quiz in the
    course uses and that is not in the course's own question bank. An empty list means the
    course has nothing to migrate.
@@ -141,15 +143,16 @@ grade wins. `classes/observer.php` runs each time `mod_quiz` recalculates a grad
 - The attempt is lower: the override stays, and the carried-over grade is written back to the
   quiz's `quiz_grades` row so the quiz reports match the gradebook.
 
-The table `block_qcexp_carried` stores each carried-over grade. It is how the plugin knows
+The table `block_qcategory_exporter_carried` stores each carried-over grade. It is how the plugin knows
 which overrides are its own, so an override set by a teacher is never touched. A student's row
-is deleted once one of their attempts beats the carried-over grade.
+is deleted once one of their attempts beats the carried-over grade, or when the copied quiz is
+deleted.
 
 ## Permissions
 
-- **Seeing the block**: `moodle/site:config` at system level.
-- **Running the import**: `moodle/question:managecategory` and `moodle/question:useall` in the
-  course.
+- **Seeing the block and running the import**: `moodle/site:config` at system level.
+- **Importing the question categories**: `moodle/question:managecategory` and
+  `moodle/question:useall` in the course.
 - **Duplicating the quizzes**: `moodle/course:manageactivities` in the course.
 - **Carrying completion over**: `moodle/course:overridecompletion`. Asked for only when the
   course tracks completion.
@@ -176,7 +179,7 @@ is deleted once one of their attempts beats the carried-over grade.
 | `classes/observer.php` | Removes an override once the student beats the carried-over grade |
 | `classes/privacy/provider.php` | Privacy API: export and deletion of the stored rows |
 | `db/events.php` | Registers the observer |
-| `db/install.xml`, `db/upgrade.php` | The `block_qcexp_carried` table |
+| `db/install.xml`, `db/upgrade.php` | The `block_qcategory_exporter_carried` table |
 | `tests/` | PHPUnit tests for the export, import and duplicate steps |
 
 ## Tests

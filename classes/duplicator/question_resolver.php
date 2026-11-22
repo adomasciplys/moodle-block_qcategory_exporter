@@ -39,7 +39,9 @@ class question_resolver {
                   JOIN {question} q ON q.id = qv.questionid
                  WHERE qv.questionbankentryid = :entryid
               ORDER BY qv.version DESC";
-        return $DB->get_record_sql($sql, ['entryid' => $entryid], IGNORE_MISSING);
+
+        // IGNORE_MULTIPLE fetches the newest row only.
+        return $DB->get_record_sql($sql, ['entryid' => $entryid], IGNORE_MULTIPLE) ?: null;
     }
 
     /**
@@ -56,7 +58,7 @@ class question_resolver {
      * @param int $categoryid Target category id.
      * @param \stdClass $oldentry Source question_bank_entries row.
      * @param \stdClass $oldquestion Source question record.
-     * @param array<int, int> $usedentryids Target question_bank_entries ids already taken.
+     * @param int[] $usedentryids Target question_bank_entries ids already taken.
      * @return \stdClass|null Matching question record, or null when none of the four match.
      */
     public function find_matching_question(
@@ -153,7 +155,7 @@ class question_resolver {
      * @param int $categoryid Target category id.
      * @param string $column Column to match on
      * @param string|null $value Value to match; a blank value means there is nothing to match.
-     * @param array<int, int> $usedentryids Entries to leave out, already taken by an earlier slot.
+     * @param int[] $usedentryids Entries to leave out, already taken by an earlier slot.
      * @param bool $longtext True when the column holds long text, which some databases cannot
      *      compare with a plain equals.
      * @return \stdClass|null Matching question record, or null when there is no match.
@@ -196,6 +198,7 @@ class question_resolver {
                    {$notused}
               ORDER BY qv.version DESC, qbe.id ASC";
 
-        return $DB->get_record_sql($sql, $params, IGNORE_MISSING) ?: null;
+        // More than one question can match. IGNORE_MULTIPLE fetches the first row only.
+        return $DB->get_record_sql($sql, $params, IGNORE_MULTIPLE) ?: null;
     }
 }

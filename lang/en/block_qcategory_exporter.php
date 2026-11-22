@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Languages configuration for the block_pluginname plugin.
+ * Languages configuration for the block_qcategory_exporter plugin.
  *
  * @package   block_qcategory_exporter
  * @copyright 2025 Innowell
@@ -28,14 +28,16 @@ $string['importcompletewithfailures'] = 'Imported categories and duplicated {$a-
 $string['importcompletewithskipped'] = 'Imported categories and duplicated {$a->duplicated} quiz(zes). {$a->skipped} question(s) could not be copied, so those quizzes hold fewer questions than the originals. First: {$a->firstmessage}';
 $string['leftovercopies'] = '{$a->count} unfinished copy/copies could not be removed and are still in the course, so please delete them. First: {$a->firstmessage}';
 $string['leftovercopy'] = 'the copy of "{$a->name}" (course module {$a->cmid})';
-$string['pluginname'] = 'Question Category Exporter Block';
-$string['privacy:metadata:block_qcexp_carried'] = 'Which students hold a grade or completion that the block carried from an original quiz onto its copy. The record is kept only so the block can release its own overrides, and is deleted the first time the student submits an attempt at the copy.';
-$string['privacy:metadata:block_qcexp_carried:cmid'] = 'The course module id of the copied quiz.';
-$string['privacy:metadata:block_qcexp_carried:quizid'] = 'The quiz instance id of the copied quiz.';
-$string['privacy:metadata:block_qcexp_carried:timecreated'] = 'When the grade or completion was carried over.';
-$string['privacy:metadata:block_qcexp_carried:userid'] = 'The student whose grade or completion was carried over.';
-$string['qcategory_exporter:addinstance'] = 'Add a new Question Category Exporter block';
-$string['qcategory_exporter:myaddinstance'] = 'Add a new Question Category Exporter block to the My Moodle page';
+$string['noquestionbank'] = 'The course\'s own question bank could not be found or created.';
+$string['pluginname'] = 'Question category exporter block';
+$string['privacy:metadata:block_qcategory_exporter_carried'] = 'Which students hold a grade or completion that the block carried from an original quiz onto its copy. The record is kept only so the block can release its own overrides. It is deleted when an attempt by the student earns a higher grade than the carried-over grade, when only completion was carried over and the student submits an attempt, or when the copied quiz is deleted.';
+$string['privacy:metadata:block_qcategory_exporter_carried:cmid'] = 'The course module id of the copied quiz.';
+$string['privacy:metadata:block_qcategory_exporter_carried:grade'] = 'The carried-over grade. Empty when only completion was carried over.';
+$string['privacy:metadata:block_qcategory_exporter_carried:quizid'] = 'The quiz instance id of the copied quiz.';
+$string['privacy:metadata:block_qcategory_exporter_carried:timecreated'] = 'When the grade or completion was carried over.';
+$string['privacy:metadata:block_qcategory_exporter_carried:userid'] = 'The student whose grade or completion was carried over.';
+$string['qcategory_exporter:addinstance'] = 'Add a new question category exporter block';
+$string['qcategory_exporter:myaddinstance'] = 'Add a new question category exporter block to the My Moodle page';
 $string['skippedslot'] = '{$a->name}, question {$a->slot}: {$a->reason}';
 $string['skipreason_alreadyinquiz'] = 'the quiz already holds this question';
 $string['skipreason_categorynotimported'] = 'the question category was not imported into the course';

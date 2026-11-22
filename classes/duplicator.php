@@ -88,7 +88,7 @@ class duplicator {
      * Requires the current user to have capability to manage activities in the course.
      *
      * @param int $courseid
-     * @param array<int, int> $categorymap Source category id => imported category id.
+     * @param int[] $categorymap Source category id => imported category id.
      * @return array{duplicated: int, failed: array<int, array>, skipped: array<int, array>,
      *      leftover: array<int, array>, quizmap: array<int, int>}
      */
@@ -151,7 +151,7 @@ class duplicator {
      * Does this quiz draw questions from any of the categories being imported?
      *
      * @param \stdClass $quiz Source quiz row.
-     * @param array<int, int> $categorymap Source category id => imported category id.
+     * @param int[] $categorymap Source category id => imported category id.
      * @return bool True when at least one slot draws from a mapped category.
      */
     private function quiz_uses_mapped_category(\stdClass $quiz, array $categorymap): bool {
@@ -187,8 +187,8 @@ class duplicator {
      *
      * @param \stdClass $course Course the quiz belongs to.
      * @param \stdClass $quiz Source quiz row
-     * @param array<int, int> $categorymap Source category id => imported/destination category id.
-     * @param array<int, int> $students User ids to carry grades and completion over for.
+     * @param int[] $categorymap Source category id => imported/destination category id.
+     * @param int[] $students User ids to carry grades and completion over for.
      * @return array{quizid: int, skipped: array<int, array{slot: int, reason: string}>} The new quiz
      *      instance id, and the slots that could not be copied into it.
      */
@@ -285,7 +285,7 @@ class duplicator {
      * Name the quiz each skipped slot came from, so the caller can report it.
      *
      * @param \stdClass $quiz The source quiz whose slots were skipped.
-     * @param array<int, array{slot: int, reason: string}> $skipped What copy_all() reported.
+     * @param array[] $skipped What copy_all() reported: one array per skipped slot, with the keys slot and reason.
      * @return array<int, array{quizid: int, cmid: int, name: string, slot: int, reason: string}>
      */
     private function describe_skipped_slots(\stdClass $quiz, array $skipped): array {

@@ -43,4 +43,14 @@ $observers = [
         'eventname' => '\mod_quiz\event\attempt_regraded',
         'callback' => '\block_qcategory_exporter\observer::attempt_regraded',
     ],
+    [
+        // A deleted quiz, whose rows in block_qcategory_exporter_carried are then deleted too.
+        'eventname' => '\core\event\course_module_deleted',
+        'callback' => '\block_qcategory_exporter\observer::course_module_deleted',
+    ],
+    [
+        // An emptied or deleted course, which removes its quizzes without the event above.
+        'eventname' => '\core\event\course_content_deleted',
+        'callback' => '\block_qcategory_exporter\observer::course_content_deleted',
+    ],
 ];

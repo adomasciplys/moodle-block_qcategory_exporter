@@ -256,6 +256,8 @@ final class qcategory_export_test extends advanced_testcase {
             /**
              * Checks if a record exists in the database.
              *
+             * @param mixed $a The table name. Not used.
+             * @param mixed $b The conditions. Not used.
              * @return bool Always returns the value of the $exists property.
              */
             public function record_exists($a, $b) {

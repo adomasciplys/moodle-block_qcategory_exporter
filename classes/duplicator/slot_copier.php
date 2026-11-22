@@ -70,7 +70,7 @@ class slot_copier {
      * @param int $oldquizid
      * @param int $newquizid
      * @param int $oldcmid
-     * @param array<int, int> $categorymap Source category id => imported category id.
+     * @param int[] $categorymap Source category id => imported category id.
      * @return array<int, array{slot: int, reason: string}> The slots left out, in slot order.
      */
     public function copy_all(int $oldquizid, int $newquizid, int $oldcmid, array $categorymap): array {
@@ -116,8 +116,8 @@ class slot_copier {
      * @param int $oldcontextid Module context id of the source quiz.
      * @param \stdClass $newquiz Destination quiz record.
      * @param \mod_quiz\structure $structure Destination quiz structure (for random slot insertion).
-     * @param array<int, int> $categorymap Source category id => imported category id.
-     * @param array<int, int> $usedentryids Target entries already taken by an earlier slot; added to here.
+     * @param int[] $categorymap Source category id => imported category id.
+     * @param int[] $usedentryids Target entries already taken by an earlier slot; added to here.
      * @return string|null Why the slot was left out, or null when it was copied.
      */
     private function copy_slot(
@@ -161,8 +161,8 @@ class slot_copier {
      * @param \stdClass $newquiz Destination quiz record.
      * @param \stdClass $slot Source quiz_slots row.
      * @param \stdClass $normalref Source question_references row for this slot.
-     * @param array<int, int> $categorymap Source category id => imported category id.
-     * @param array<int, int> $usedentryids Target entries already taken by an earlier slot; added to here.
+     * @param int[] $categorymap Source category id => imported category id.
+     * @param int[] $usedentryids Target entries already taken by an earlier slot; added to here.
      * @return string|null Why the slot was left out, or null when it was copied.
      */
     private function copy_normal_slot(
@@ -240,7 +240,7 @@ class slot_copier {
      * @param \mod_quiz\structure $structure Destination quiz structure.
      * @param \stdClass $slot Source quiz_slots row.
      * @param \stdClass $randomref Source question_set_references row with filtercondition JSON.
-     * @param array<int, int> $categorymap Source category id => imported category id.
+     * @param int[] $categorymap Source category id => imported category id.
      * @return string|null Why the slot was left out, or null when it was copied.
      */
     private function copy_random_slot(

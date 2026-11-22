@@ -30,6 +30,8 @@ use block_qcategory_exporter\duplicator\override_register;
  * - The student beat the carried-over grade, so the pin comes off.
  * - The student did not, so the pin stays.
  *
+ * It also deletes the rows of the table block_qcategory_exporter_carried that belong to a deleted quiz.
+ *
  * @package    block_qcategory_exporter
  * @copyright  2026 Innowell
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -75,6 +77,30 @@ class observer {
         $userid = (int) $DB->get_field('quiz_attempts', 'userid', ['id' => $attemptid]);
 
         self::settle((int) $event->courseid, (int) ($event->other['quizid'] ?? 0), $userid);
+    }
+
+    /**
+     * A quiz was deleted, so the rows held for it have nothing left to protect.
+     *
+     * @param \core\event\course_module_deleted $event The deleted course module.
+     * @return void
+     */
+    public static function course_module_deleted(\core\event\course_module_deleted $event): void {
+        if (($event->other['modulename'] ?? '') !== 'quiz') {
+            return;
+        }
+
+        (new override_register())->delete_for_deleted_quizzes();
+    }
+
+    /**
+     * A course was emptied or deleted. That removes its quizzes without a course_module_deleted event.
+     *
+     * @param \core\event\course_content_deleted $event The emptied course.
+     * @return void
+     */
+    public static function course_content_deleted(\core\event\course_content_deleted $event): void {
+        (new override_register())->delete_for_deleted_quizzes();
     }
 
     /**
